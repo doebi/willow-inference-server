@@ -101,6 +101,12 @@ class APISettings(BaseSettings):
     # Chatbot pipeline default max new tokens
     chatbot_max_new_tokens: int = 512
 
+    # Support webhook
+    support_webhook: bool = True
+
+    # Webhook URL (must accept POST with JSON payload)
+    webhook_url: str = "https://nr.doebi.at/willow"
+
     # airotc debug for connectivity and other WebRTC debugging
     aiortc_debug: bool = False
 

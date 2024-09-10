@@ -25,6 +25,7 @@ import io
 import re
 import math
 import functools
+import requests
 from typing import NamedTuple
 
 # WebRTC
@@ -1054,10 +1055,15 @@ class DataChannelMessage(NamedTuple):
     message: Optional[str] = None
     obj: Optional[any] = None
 
+def send_webhook(data):
+    requests.post(settings.webhook_url, data=data)
 
 def send_dc_response(channel, *args, **kargs):
     response = DataChannelMessage(*args, **kargs)
     channel.send(json.dumps(response._asdict()))
+
+    if channel == "infer":
+        send_webhook(json.dumps(response._asdict()))
 
 
 # Function for WebRTC handling
